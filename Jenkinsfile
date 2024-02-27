@@ -16,6 +16,7 @@ pipeline {
             steps {
                 dir('demo') {
                     script {
+                        // Utilisation de 'mvn' sans spécifier le chemin absolu
                         sh "${MVN_HOME}/bin/mvn -B -DskipTests clean package"
                     }
                 }
@@ -26,6 +27,7 @@ pipeline {
             steps {
                 dir('demo') {
                     script {
+                        // Utilisation de 'mvn' sans spécifier le chemin absolu
                         sh "${MVN_HOME}/bin/mvn javadoc:javadoc"
                         sh 'ls -l target/site'
                     }
@@ -35,7 +37,8 @@ pipeline {
 
         stage('Archive Javadoc') {
             steps {
-                archiveArtifacts artifacts: 'demo/target/site/apidocs/**/*', allowEmptyArchive: true
+                // Modification du chemin des artefacts à archiver
+                archiveArtifacts artifacts: 'target/site/**/*', allowEmptyArchive: true
             }
         }
     }
@@ -52,3 +55,4 @@ pipeline {
         }
     }
 }
+
